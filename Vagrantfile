@@ -21,4 +21,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     settings["folders"].each do |folder|
         config.vm.synced_folder folder["map"], folder["to"]
     end
+
+    # Install all of the configured apache sites
+    settings["sites"].each do |site|
+        config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/serve.sh $1 $2"
+            s.args = [site["map"], site["to"]]
+        end
+    end
 end
