@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+mkdir -p /etc/httpd/sites-available
+mkdir -p /etc/httpd/sites-enabled
+
+LINE='Include sites-enabled/*.conf'
+FILE=/etc/httpd/conf/httpd.conf
+grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
 block="<VirtualHost *:80>
     ServerName $1
     DocumentRoot $2
