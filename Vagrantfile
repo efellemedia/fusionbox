@@ -1,11 +1,24 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+VAGRANTFILE_API_VERSION = "2"
 
-Vagrant.configure("2") do |config|
+require 'yaml'
 
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    # Configure the box
     config.vm.box = "fusion/box"
-    config.vm.network "private_network", ip: "192.168.33.80"
     config.vm.hostname = "fusionbox"
-    config.vm.synced_folder "./public", "/var/www", :mount_options => ["dmode=777", "fmode=666"]
 
+    # Read the folder/site settings
+    settings = YAML::load(File.read('./Fusionbox.yaml'))
+
+    # Configure some virtualbox settings
+    config.vm.network "private_network", ip: "192.168.33.80"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+    end
+
+    # Register all of the configured shared folders
+    settings["folders"].each do |folder|
+        config.vm.synced_folder folder["map"], folder["to"]
+    end
 end

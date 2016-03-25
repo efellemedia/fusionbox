@@ -1,0 +1,9 @@
+---
+
+folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+
+sites:
+    - map: fusioncms.dev
+      to: /home/vagrant/Code/cmv4/trunk
