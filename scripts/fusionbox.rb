@@ -7,7 +7,6 @@ class Fusionbox
 
         # Configure the box
         config.vm.box = "fusion/box"
-        config.vm.box.version = ">= 1.0.0"
         config.vm.hostname = "fusionbox"
 
         # Configure a private network IP
@@ -18,6 +17,18 @@ class Fusionbox
             vb.name = settings["name"] ||= "fusionbox"
             vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
             vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
+        end
+
+        # Default port forwarding
+        default_ports = {
+            80   => 8000,
+            443  => 44300,
+            3306 => 33060,
+            5432 => 54320
+        }
+
+        default_ports.each do |guest, host|
+            config.vm.network "forwarded_port", guest: guest, host: host, auto_correct: true
         end
 
         # Register all of the configured shared folders
@@ -37,7 +48,7 @@ class Fusionbox
             settings["sites"].each do |site|
                 config.vm.provision "shell" do |s|
                     s.path = scriptDir + "/create-vhost.sh"
-                    s.args = [site["map"], site[""]]
+                    s.args = [site["map"], site["to"]]
                 end
             end
         end
