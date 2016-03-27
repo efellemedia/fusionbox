@@ -34,7 +34,7 @@ class Fusionbox
         # Register all of the configured shared folders
         if settings.include? 'folders'
             settings["folders"].each do |folder|
-                config.vm.synced_folder folder["map"], folder["to"]
+                config.vm.synced_folder folder["map"], folder["to"], :mount_options => ["dmode=777", "fmode=666"]
             end
         end
 

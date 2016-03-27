@@ -2,18 +2,14 @@
 
 block="<VirtualHost *:80>
     ServerName $1
-    DocumentRoot $2
+    DocumentRoot "$2"
+    AccessFileName .htaccess.local .htaccess
 
-    <Directory />
-        Options FollowSymLinks
-        AllowOverride All
-    </Directory>
-
-    <Directory $2/>
-        Options Indexes FollowSymLinks MultiViews
+    <Directory "$2">
+        Options FollowSymLinks Indexes
         AllowOverride All
         Order allow,deny
-        allow from All
+        Allow from all
     </Directory>
 </VirtualHost>"
 
