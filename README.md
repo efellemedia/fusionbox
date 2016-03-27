@@ -63,3 +63,38 @@ Make sure the IP address listed in the one set in your `~/.fusionbox/Fusionbox.y
 http://hometikibar.dev
 ```
 
+## Launching the Fusionbox Environment
+Once you have edited the `Fusionbox.yaml` file to your liking, run the `vagrant up` command from your Fusionbox diretory. Vagrant will boot the virtual machine and automatically configure your shared folders and Apache sites.
+
+To destroy the machine, you may use the `vagrant destroy --force` command.
+
+## Daily Usage
+
+### Accessing Fusionbox Globally
+Sometimes you may want to `vagrant up` your Fusionbox machine from anywhere on your filesystem. You can do this by adding a simple Bash alias to your Bash profile. This alias will allow you to run any Vagrant command from anywhere on your system and will automatically point that command to your Fusionbox installation:
+
+```
+alias fusionbox='function __fusionbox() { (cd ~/Fusionbox && vagrant $*); unset -f __fusionbox; }; __fusionbox'
+```
+
+Make sure to tweak the `~/Fusionbox` path in the alias to the location of your actual Fusionbox installation. Once the alias is installed, you may run commands like `fusionbox up` or `fusionbox ssh` from anywhere on your system.
+
+### Connecting via SSH
+You can SSH into your virtual machine by issuing the `vagrant ssh` terminal command from your Fusionbox directory.
+
+But, since you will probably need to SSH into your Fusionbox machine frequently, consider adding the "alias" described above to your host machine to quickly SSH into the Fusionbox environment.
+
+### Connecting to Databases
+To connect to your MySQL database from your host machine via Navicat or Sequel Pro, you should connect to `127.0.0.1` and port `33060`. The username and password is `root` / `secret`.
+
+> **Note:** You should only use this non-standard port when connecting to the databases from your host machine. You will use the default 3306 port in your v5 constants file since your v4 project is running *within* the virtual machine.
+
+### Adding Additional Sites
+Once your Fusionbox environment is provisioned and running, you may want to add additional Apache sites for your v4 projects. You can run as many v4 projects as you wish on a single Fusionbox environment. To add an additional site, simply add the site to your `~/.fusionbox/Fusionbox.yaml` file and then run the `vagrant provision` terminal command from your Fusionbox directory.
+
+## Ports
+By default, the following ports are forwarded to your Fusionbox environment:
+
+- **SSH:** 2222 → Forwards to 22
+- **HTTP:** 8000 → Forwards to 80
+- **MySQL:** 33060 → Forwards to 3306
