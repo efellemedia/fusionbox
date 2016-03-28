@@ -14,7 +14,7 @@ vagrant box add fusion/box
 If this command fails, make sure your Vagrant installation is up to date.
 
 ### Installing Fusionbox
-You may install Fusionbox by simply cloning the repository. Consider cloning the repository into a `Fusiobox` folder within your "home" directory, as Fusionbox will serve as the host to all of your v4 projects.
+You may install Fusionbox by simply cloning the repository. Consider cloning the repository into a `Fusionbox` folder within your "home" directory, as Fusionbox will serve as the host to all of your v4 projects.
 
 ```
 cd ~
@@ -36,7 +36,7 @@ The `folders` property of the `Fusionbox.yaml` file lists all the folders you wi
 ```
 folders:
     - map: ~/Code
-      to: /home/vagrant/Code
+      to: /var/www
 ```
 
 ### Configuring Apache Sites
@@ -45,7 +45,7 @@ Not familiar with Apache? No problem. The `sites` property allows you to easily 
 ```
 sites:
     - map: hometikibar.dev
-      to: /home/vagrant/Code/hometiki/trunk
+      to: /var/www/hometiki/trunk
 ```
 
 If you change the `sites` property after provisioning the Fusionbox environment, you should re-run `vagrant reload --provision` to update the virtual host configuration on the virtual machine.
