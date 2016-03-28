@@ -1,5 +1,18 @@
 # Fusion Box
-Fusion Box is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing the ability to easily run FusionCMS v4 locally in no time.
+Fusion Box is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing the ability to easily run FusionCMS v4 locally in no time. It provides you with everything  without requiring you to install PHP, Apache, or any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
+
+Fusionbox runs on any Windows, Mac, or Linux system, and includes the Apache web server, PHP 5.3, MySQL, and all of the other goodies you need to develop amazing v4 projects.
+
+## Included Software
+
+- CentOS 6
+- PHP 5.3
+ - GD
+ - PDO
+ - mbstring
+ - Soap
+ - xml
+- MySQL
 
 ## First Steps
 Before launching your Fusionbox environment, you must install [VirtualBox 5.x]() as well as [Vagrant](). Both of these software packages provide easy-to-use visual installers for all popular operating systems.
