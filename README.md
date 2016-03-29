@@ -15,7 +15,7 @@ Fusionbox runs on any Windows, Mac, or Linux system, and includes the Apache web
 - MySQL
 
 ## First Steps
-Before launching your Fusionbox environment, you must install [VirtualBox 5.x]() as well as [Vagrant](). Both of these software packages provide easy-to-use visual installers for all popular operating systems.
+Before launching your Fusionbox environment, you must install [VirtualBox 5.x](https://www.virtualbox.org) as well as [Vagrant](https://www.vagrantup.com). Both of these software packages provide easy-to-use visual installers for all popular operating systems.
 
 ### Installing the Fusionbox Vagrant Box
 Once VirtualBox and Vagrant have been installed, you should add the `fusion/box` box to your Vagrant installation using the following command in your terminal. It will take a few minutes to download the box, depending on your internet connection speed:
@@ -32,7 +32,7 @@ You may install Fusionbox by simply cloning the repository. Consider cloning the
 ```
 cd ~
 
-git clone git@github.com:efellemedia/fusion-box.git
+git clone git@github.com:efellemedia/fusion-box.git Fusionbox
 ```
 
 Once you have cloned the Fusionbox repository, run the `bash init.sh` command from the Fusionbox directory to create the `Fusionbox.yaml` configuration file. The `Fusionbox.yaml` file will be placed in the `~/.fusionbox` hidden directory:
