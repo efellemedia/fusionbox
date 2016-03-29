@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-fusionboxRoot=~/.fusionbox
+fusionboxRoot=~/Fusionbox
 
 mkdir -p "$fusionboxRoot"
 
-cp -i stubs/Fusionbox.yaml "$fusionboxRoot/Fusionbox.yaml"
+cp -i src/stubs/Fusionbox.yaml "$fusionboxRoot/Fusionbox.yaml"
 
-echo "Fusionbox initialized!"
+echo "Fusionbox initialized! You will find your configuration file at $fusionboxRoot/Fusionbox.yaml"

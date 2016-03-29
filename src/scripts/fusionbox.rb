@@ -51,6 +51,10 @@ class Fusionbox
                     s.args = [site["map"], site["to"]]
                 end
             end
+
+            config.vm.provision "shell" do |s|
+                s.path = scriptDir + "/restart-httpd.sh"
+            end
         end
 
         # Configure all of the configured databases

@@ -15,6 +15,3 @@ block="<VirtualHost *:80>
 
 echo "$block" >> /etc/httpd/sites-available/$1.conf
 ln -s /etc/httpd/sites-available/$1.conf /etc/httpd/sites-enabled/$1.conf
-
-service httpd configtest
-service httpd restart
