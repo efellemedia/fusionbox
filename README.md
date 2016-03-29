@@ -27,15 +27,15 @@ vagrant box add fusion/box
 If this command fails, make sure your Vagrant installation is up to date.
 
 ### Installing Fusionbox
-You may install Fusionbox by simply cloning the repository. Consider cloning the repository into a `Fusionbox` folder within your "home" directory, as Fusionbox will serve as the host to all of your v4 projects.
+You may install Fusionbox by simply cloning the repository. We'll be cloning this to your home directory as `Fusionbox` for easy access.
 
 ```
 cd ~
 
-git clone git@github.com:efellemedia/fusion-box.git Fusionbox
+git clone git@github.com:efellemedia/fusionbox.git Fusionbox
 ```
 
-Once you have cloned the Fusionbox repository, run the `bash init.sh` command from the Fusionbox directory to create the `Fusionbox.yaml` configuration file. The `Fusionbox.yaml` file will be placed in the `~/.fusionbox` hidden directory:
+Once you have cloned the Fusionbox repository, run the `bash init.sh` command from the Fusionbox directory to create the `Fusionbox.yaml` configuration file. The `Fusionbox.yaml` file will be placed in your `Fusionbox` directory:
 
 ```
 bash init.sh
@@ -70,7 +70,7 @@ You must add the "domains" for your Apache sites to the `hosts` file on your mac
 192.168.10.80 hometikibar.dev
 ```
 
-Make sure the IP address listed in the one set in your `~/.fusionbox/Fusionbox.yaml` file. Once you have added your domain to your `hosts` file, you can access the site via your web browser:
+Make sure the IP address listed in the one set in your `~/Fusionbox/Fusionbox.yaml` file. Once you have added your domain to your `hosts` file, you can access the site via your web browser:
 
 ```
 http://hometikibar.dev
@@ -90,7 +90,7 @@ Sometimes you may want to `vagrant up` your Fusionbox machine from anywhere on y
 alias fusionbox='function __fusionbox() { (cd ~/Fusionbox && vagrant $*); unset -f __fusionbox; }; __fusionbox'
 ```
 
-Make sure to tweak the `~/Fusionbox` path in the alias to the location of your actual Fusionbox installation. Once the alias is installed, you may run commands like `fusionbox up` or `fusionbox ssh` from anywhere on your system.
+Once the alias is installed, you may run commands like `fusionbox up` or `fusionbox ssh` from anywhere on your system.
 
 ### Connecting via SSH
 You can SSH into your virtual machine by issuing the `vagrant ssh` terminal command from your Fusionbox directory.
@@ -103,7 +103,7 @@ To connect to your MySQL database from your host machine via Navicat or Sequel P
 > **Note:** You should only use this non-standard port when connecting to the databases from your host machine. You will use the default 3306 port in your v5 constants file since your v4 project is running *within* the virtual machine.
 
 ### Adding Additional Sites
-Once your Fusionbox environment is provisioned and running, you may want to add additional Apache sites for your v4 projects. You can run as many v4 projects as you wish on a single Fusionbox environment. To add an additional site, simply add the site to your `~/.fusionbox/Fusionbox.yaml` file and then run the `vagrant provision` terminal command from your Fusionbox directory.
+Once your Fusionbox environment is provisioned and running, you may want to add additional Apache sites for your v4 projects. You can run as many v4 projects as you wish on a single Fusionbox environment. To add an additional site, simply add the site to your `~/Fusionbox/Fusionbox.yaml` file and then run the `vagrant provision` terminal command from your Fusionbox directory.
 
 ## Ports
 By default, the following ports are forwarded to your Fusionbox environment:
