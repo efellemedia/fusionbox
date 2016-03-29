@@ -1,8 +1,21 @@
 # Fusion Box
-Fusion Box is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing the ability to easily run FusionCMS v4 locally in no time.
+Fusion Box is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing the ability to easily run FusionCMS v4 locally in no time. It provides you with everything  without requiring you to install PHP, Apache, or any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
+
+Fusionbox runs on any Windows, Mac, or Linux system, and includes the Apache web server, PHP 5.3, MySQL, and all of the other goodies you need to develop amazing v4 projects.
+
+## Included Software
+
+- CentOS 6
+- PHP 5.3
+ - GD
+ - PDO
+ - mbstring
+ - Soap
+ - xml
+- MySQL
 
 ## First Steps
-Before launching your Fusionbox environment, you must install [VirtualBox 5.x]() as well as [Vagrant](). Both of these software packages provide easy-to-use visual installers for all popular operating systems.
+Before launching your Fusionbox environment, you must install [VirtualBox 5.x](https://www.virtualbox.org) as well as [Vagrant](https://www.vagrantup.com). Both of these software packages provide easy-to-use visual installers for all popular operating systems.
 
 ### Installing the Fusionbox Vagrant Box
 Once VirtualBox and Vagrant have been installed, you should add the `fusion/box` box to your Vagrant installation using the following command in your terminal. It will take a few minutes to download the box, depending on your internet connection speed:
@@ -14,12 +27,12 @@ vagrant box add fusion/box
 If this command fails, make sure your Vagrant installation is up to date.
 
 ### Installing Fusionbox
-You may install Fusionbox by simply cloning the repository. Consider cloning the repository into a `Fusiobox` folder within your "home" directory, as Fusionbox will serve as the host to all of your v4 projects.
+You may install Fusionbox by simply cloning the repository. Consider cloning the repository into a `Fusionbox` folder within your "home" directory, as Fusionbox will serve as the host to all of your v4 projects.
 
 ```
 cd ~
 
-git clone git@github.com:efellemedia/fusion-box.git
+git clone git@github.com:efellemedia/fusion-box.git Fusionbox
 ```
 
 Once you have cloned the Fusionbox repository, run the `bash init.sh` command from the Fusionbox directory to create the `Fusionbox.yaml` configuration file. The `Fusionbox.yaml` file will be placed in the `~/.fusionbox` hidden directory:
@@ -36,7 +49,7 @@ The `folders` property of the `Fusionbox.yaml` file lists all the folders you wi
 ```
 folders:
     - map: ~/Code
-      to: /home/vagrant/Code
+      to: /var/www
 ```
 
 ### Configuring Apache Sites
@@ -45,7 +58,7 @@ Not familiar with Apache? No problem. The `sites` property allows you to easily 
 ```
 sites:
     - map: hometikibar.dev
-      to: /home/vagrant/Code/hometiki/trunk
+      to: /var/www/hometiki/trunk
 ```
 
 If you change the `sites` property after provisioning the Fusionbox environment, you should re-run `vagrant reload --provision` to update the virtual host configuration on the virtual machine.
