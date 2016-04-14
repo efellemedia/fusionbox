@@ -33,9 +33,10 @@ sh -c "$(curl -fsSL "https://raw.githubusercontent.com/efellemedia/fusionbox/mas
 ```
 
 ## Configuring Fusionbox
+You may configure your Fusionbox instance by using the `fusionbox config` command from your terminal.
 
 ### Configuring Shared Folders
-The `folders` property of the `fusionbox.yaml` file lists all the folders you wish to share with your Fusionbox environment. As files within these folders are changed, they will be kept in sync between your local machine and the Fusionbox environment. You may configure as many shared folders as necessary:
+The `folders` property of the Fusionbox configuration file lists all the folders you wish to share with your Fusionbox environment. As files within these folders are changed, they will be kept in sync between your local machine and the Fusionbox environment. You may configure as many shared folders as necessary:
 
 ```
 folders:
@@ -44,7 +45,7 @@ folders:
 ```
 
 ### Configuring Apache Sites
-Not familiar with Apache? No problem. The `sites` property allows you to easily map a "domain" to a folder on your Fusionbox environment. A sample site configuration is included in the `fusionbox.yaml` file. Again, you may add as many sites to your Fusionbox environment as necessary. Fusionbox can serve as a convenient, virtualized environment for every v4 project you are working on (including the CMS itself):
+Not familiar with Apache? No problem. The `sites` property allows you to easily map a "domain" to a folder on your Fusionbox environment. A sample site configuration is included in the Fusionbox configuration file. Again, you may add as many sites to your Fusionbox environment as necessary. Fusionbox can serve as a convenient, virtualized environment for every v4 project you are working on (including the CMS itself):
 
 ```
 sites:
@@ -52,7 +53,7 @@ sites:
       to: /var/www/hometiki/trunk
 ```
 
-If you change the `sites` property after provisioning the Fusionbox environment, you should re-run `vagrant reload --provision` to update the virtual host configuration on the virtual machine.
+If you change the `sites` property after provisioning the Fusionbox environment, you should re-run `fusionbox reload --provision` to update the virtual host configuration on the virtual machine.
 
 ### The Hosts File
 You must add the "domains" for your Apache sites to the `hosts` file on your machine. The `hosts` file will redirect requests for your Fusionbox sites in your Fusionbox machine. On Mac and Linux, this file is located at `/etc/hosts`. On Windows, it is located at `C:\Windows\System32\drivers\etc\hosts`. The lines you add to this file will look like the following:
@@ -61,46 +62,29 @@ You must add the "domains" for your Apache sites to the `hosts` file on your mac
 192.168.10.80 hometikibar.dev
 ```
 
-Make sure the IP address listed in the one set in your `~/.fusionbox/fusionbox.yaml` file. Once you have added your domain to your `hosts` file, you can access the site via your web browser:
+Make sure the IP address listed in the one set in your Fusionbox configuration file. Once you have added your domain to your `hosts` file, you can access the site via your web browser:
 
 ```
 http://hometikibar.dev
 ```
 
 ## Launching the Fusionbox Environment
-Once you have edited the `fusionbox.yaml` file to your liking, run the `vagrant up` command from your Fusionbox diretory. Vagrant will boot the virtual machine and automatically configure your shared folders and Apache sites.
+Once you have edited the `fusionbox.yaml` file to your liking, run the `vagrant up` command from your Fusionbox directory. Vagrant will boot the virtual machine and automatically configure your shared folders and Apache sites.
 
-To destroy the machine, you may use the `vagrant destroy --force` command.
+To destroy the machine, you may use the `fusionbox destroy --force` command.
 
 ## Daily Usage
 
-### Accessing Fusionbox Globally
-Sometimes you may want to `vagrant up` your Fusionbox machine from anywhere on your filesystem. You can do this by adding a simple Bash alias to your Bash profile. This alias will allow you to run any Vagrant command from anywhere on your system and will automatically point that command to your Fusionbox installation:
-
-```
-alias fusionbox='function __fusionbox() {
-    if [[ $@ == "edit" ]]; then
-        command open ~/.fusionbox/fusionbox.yaml
-    else
-        (cd ~/.fusionbox && vagrant $*);
-    fi
-}; __fusionbox'
-```
-
-Once the alias is installed, you may run commands like `fusionbox up` or `fusionbox ssh` from anywhere on your system.
-
 ### Connecting via SSH
-You can SSH into your virtual machine by issuing the `vagrant ssh` terminal command from your Fusionbox directory.
-
-But, since you will probably need to SSH into your Fusionbox machine frequently, consider adding the "alias" described above to your host machine to quickly SSH into the Fusionbox environment.
+You can SSH into your virtual machine by running the `fusionbox ssh` terminal command.
 
 ### Connecting to Databases
-To connect to your MySQL database from your host machine via Navicat or Sequel Pro, you should connect to `127.0.0.1` and port `33060`. The username and password is `root` / `secret`.
+To connect to your MySQL database from your host machine via Navicat or Sequel Pro, you should connect to `127.0.0.1` and port `33060`. The username and password is `root` / *blank*.
 
 > **Note:** You should only use this non-standard port when connecting to the databases from your host machine. You will use the default 3306 port in your v5 constants file since your v4 project is running *within* the virtual machine.
 
 ### Adding Additional Sites
-Once your Fusionbox environment is provisioned and running, you may want to add additional Apache sites for your v4 projects. You can run as many v4 projects as you wish on a single Fusionbox environment. To add an additional site, simply add the site to your `~/.fusionbox/fusionbox.yaml` file and then run the `vagrant provision` terminal command from your Fusionbox directory.
+Once your Fusionbox environment is provisioned and running, you may want to add additional Apache sites for your v4 projects. You can run as many v4 projects as you wish on a single Fusionbox environment. To add an additional site, simply add the site to your Fusionbox configuration file (`fusionbox config`) and then run the `fusionbox provision` terminal command.
 
 ## Ports
 By default, the following ports are forwarded to your Fusionbox environment:
