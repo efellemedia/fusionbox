@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-fusionboxRoot=~/Fusionbox
+fusionboxRoot=~/.fusionbox
 
 mkdir -p "$fusionboxRoot"
 

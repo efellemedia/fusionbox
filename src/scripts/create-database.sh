@@ -3,7 +3,7 @@
 cat > ~/.my.cnf << EOF
 [client]
 user = root
-password = secret
+password = 
 host = localhost
 EOF
 
