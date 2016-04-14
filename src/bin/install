@@ -63,7 +63,7 @@ main() {
 	fi
 
 	printf "\n${BLUE}Creating default configuration in $FBOX${NORMAL}\n"
-	cp -i "$FBOX/stubs/fusionbox.yaml" "$FBOX/fusionbox.yaml"
+	cp -i "$FBOX/src/stubs/fusionbox.yaml" "$FBOX/fusionbox.yaml"
 
 	printf "${GREEN}Fusionbox successfully initialized!${NORMAL}\n\n"
 	printf "\tuse the command \`fusionbox config subl\`\n"
@@ -71,10 +71,10 @@ main() {
 	printf "\tyour preferred text editor for \`subl\`\n\n"
 
 	printf "${BLUE}Adding the \`fusionbox\` command to your PATH.${NORMAL}\n\n"
-	ln -s "$HOME/.fusionbox/bin/fusionbox" "/usr/local/bin/fusionbox"
+	ln -s "$HOME/.fusionbox/src/bin/fusionbox" "/usr/local/bin/fusionbox"
 
 	# Also adding the `uninstall_fusionbox` command - it's useful
-	ln -s "$HOME/.fusionbox/uninstall.sh" "/usr/local/bin/uninstall_fusionbox"
+	ln -s "$HOME/.fusionbox/src/bin/uninstall" "/usr/local/bin/uninstall_fusionbox"
 
 	printf "${GREEN}Hey! It worked! Fusionbox is now installed!${NORMAL}\n"
 	printf "To start up your machine with the defaults just type \`fusionbox up\`\n"
