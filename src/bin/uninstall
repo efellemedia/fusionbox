@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+main() {
+	# Use colors, but only if connected to a terminal, and that terminal
+	# supports them.
+	if which tput >/dev/null 2>&1; then
+		ncolors=$(tput colors)
+	fi
+	if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+		RED="$(tput setaf 1)"
+		GREEN="$(tput setaf 40)"
+		YELLOW="$(tput setaf 3)"
+		BLUE="$(tput setaf 27)"
+		BOLD="$(tput bold)"
+		NORMAL="$(tput sgr0)"
+	else
+		RED=""
+		GREEN=""
+		YELLOW=""
+		BLUE=""
+		BOLD=""
+		NORMAL=""
+	fi
+
+	# Only enable exit-on-error after the non-critical colorization stuff,
+	# which may fail on systems lacking tput or terminfo
+	set -e
+
+	FBOX=~/.fusionbox
+
+	if [ -d "$FBOX" ]; then
+		printf "${YELLOW}Removing your installation of Fusionbox...${NORMAL}\n"
+
+		# Remove main folder
+		rm -rf "$FBOX"
+
+		# Remove symlink in /usr/local/bin
+		rm -rf "/usr/local/bin/fusionbox"
+		rm -rf "/usr/local/bin/uninstall_fusionbox"
+	else
+		printf "\n${RED}Fusionbox was not found${NORMAL}\n"
+		printf "${YELLOW}Please go find your lost repo and come back later...${NORMAL}\n\n"
+		exit
+	fi
+
+	printf "\n${RED}Fusionbox is now gone${NORMAL}\n"
+	printf "${YELLOW}Now life is much more dull...${NORMAL}\n\n"
+	printf "${BLUE}goodbye :)${NORMAL}\n\n"
+
+}
+
+main

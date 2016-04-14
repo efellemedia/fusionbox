@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+main() {
+	local FBOX_PATH=~/.fusionbox
+
+	if [ "$1" = "config" ]; then
+		local SUBL_PATH='/usr/local/bin/subl'
+		local ATOM_PATH='/usr/local/bin/atom'
+
+		if [ -n "$2" ]; then
+			TXT_EDITOR="$2"
+		elif [ -e "$SUBL_PATH" ]; then
+			TXT_EDITOR='subl'
+		elif [ -e "$ATOM_PATH" ]; then
+			TXT_EDITOR='atom'
+		else
+			TXT_EDITOR='nano'
+		fi
+
+		$TXT_EDITOR $FBOX_PATH/fusionbox.yaml
+		return
+	fi
+
+	if [ "$1" = "vhosts" ]; then
+		local SUBL_PATH='/usr/local/bin/subl'
+		local ATOM_PATH='/usr/local/bin/atom'
+
+		if [ -n "$2" ]; then
+			TXT_EDITOR="$2"
+		elif [ -e "$SUBL_PATH" ]; then
+			TXT_EDITOR='subl'
+		elif [ -e "$ATOM_PATH" ]; then
+			TXT_EDITOR='atom'
+		else
+			TXT_EDITOR='nano'
+		fi
+
+		sudo $TXT_EDITOR /etc/hosts
+		return
+	fi
+
+	local CURRENT_LOCATION=$PWD
+	cd $FBOX_PATH
+	vagrant $*
+	cd $CURRENT_LOCATION
+}
+
+main $@
