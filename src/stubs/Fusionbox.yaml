@@ -7,6 +7,9 @@ folders:
     - map: ~/Code
       to: /var/www
 
+    - map: ~/Sites
+      to: /var/www
+
 sites:
     - map: hometikibar.dev
       to:  /var/www/hometiki/trunk
