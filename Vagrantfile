@@ -3,7 +3,7 @@ require 'yaml'
 VAGRANTFILE_API_VERSION = "2"
 
 confDir = $confDir ||= File.expand_path("~/.fusionbox")
-fusionboxPath = confDir + "/Fusionbox.yaml"
+fusionboxPath = confDir + "/fusionbox.yaml"
 
 require File.expand_path(File.dirname(__FILE__) + '/src/scripts/fusionbox.rb')
 
