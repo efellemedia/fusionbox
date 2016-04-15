@@ -4,11 +4,10 @@ memory: 2048
 cpus: 1
 
 folders:
-    - map: ~/Code
-      to: /var/www
-
     - map: ~/Sites
       to: /var/www
+    - map: ~/Code
+      to: /var/Code
 
 sites:
     - map: hometikibar.dev
