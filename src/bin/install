@@ -66,9 +66,8 @@ main() {
 	cp -i "$FBOX/src/stubs/fusionbox.yaml" "$FBOX/fusionbox.yaml"
 
 	printf "${GREEN}Fusionbox successfully initialized!${NORMAL}\n\n"
-	printf "\tuse the command \`fusionbox config subl\`\n"
-	printf "\tto access it with Sublime Text, or substitute\n"
-	printf "\tyour preferred text editor for \`subl\`\n\n"
+	printf "\tuse the command \`fusionbox config\`\n"
+	printf "\tto access the configuration file\n\n"
 
 	printf "${BLUE}Adding the \`fusionbox\` command to your PATH.${NORMAL}\n\n"
 	ln -s "$HOME/.fusionbox/src/bin/fusionbox" "/usr/local/bin/fusionbox"
