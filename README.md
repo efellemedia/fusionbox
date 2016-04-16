@@ -29,7 +29,7 @@ If this command fails, make sure your Vagrant installation is up to date.
 You may install Fusionbox by simply running the following command.
 
 ```
-sh -c "$(curl -fsSL "https://raw.githubusercontent.com/efellemedia/fusionbox/master/src/bin/install?token=AAVtS01nv6cCwuhfMchaQ22gR6hAyg97ks5XGVwSwA%3D%3D")"
+sh -c "$(curl -fsSL "https://raw.githubusercontent.com/efellemedia/fusionbox/master/src/bin/install?token=ADyy8QwipvvltPPYVCWkmtOsUoHOifUkks5XGudKwA%3D%3D")"
 ```
 
 ## Configuring Fusionbox
