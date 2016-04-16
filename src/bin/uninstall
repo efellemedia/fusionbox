@@ -29,7 +29,20 @@ main() {
 	FBOX=~/.fusionbox
 
 	if [ -d "$FBOX" ]; then
-		printf "${YELLOW}Removing your installation of Fusionbox...${NORMAL}\n"
+
+		# If a fusion/box instance is found prompt to delete it
+		if [ "$(vagrant box list | grep fusion)" ]; then
+			printf "\n${YELLOW}Would you like to clear all '${RED}fusionbox${YELLOW}' virtualbox instances?${NORMAL} (y/n): "
+			read -s -n 1 CLEANVBOXS
+			if [ "$CLEANVBOXS" = "y" ]; then
+				printf "\n${RED}Destroying '${NORMAL}fusionbox${RED}' virtualbox${NORMAL}\n"
+				fusionbox destroy -f
+				printf "${RED}Removing '${NORMAL}fusion/box${RED}' vagrant box${NORMAL}\n"
+				vagrant box remove fusion/box --all --force
+			fi
+		fi
+
+		printf "\n${YELLOW}Removing your installation of Fusionbox...${NORMAL}\n"
 
 		# Remove main folder
 		rm -rf "$FBOX"
