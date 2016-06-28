@@ -13,5 +13,11 @@ sites:
     - map: hometikibar.dev
       to:  /var/www/hometiki/trunk
 
+    - map: phpinfo.dev
+      to:  /var/www/fusionbox-cp/phpinfo
+
+    - map: beanstalk.dev
+      to:  /var/www/fusionbox-cp/beanstalk/public
+
 # databases:
 #     - hometikibar
