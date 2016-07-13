@@ -57,6 +57,16 @@ class Fusionbox
             end
         end
 
+        # Configure all of the supervisor sites
+        if settings.has_key?("supervise")
+            settings["supervise"].each do |job|
+                config.vm.provision "shell" do |s|
+                    s.path = scriptDir + "/create-supervisor.sh"
+                    s.args = [job["name"], job["command"], job["directory"], job["log"]]
+                end
+            end
+        end
+
         # Configure all of the configured databases
         if settings.has_key?("databases")
             settings["databases"].each do |db|

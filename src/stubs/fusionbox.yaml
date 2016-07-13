@@ -6,6 +6,7 @@ cpus: 1
 folders:
     - map: ~/Sites
       to: /var/www
+
     - map: ~/Code
       to: /var/Code
 
@@ -13,11 +14,11 @@ sites:
     - map: hometikibar.dev
       to:  /var/www/hometiki/trunk
 
-    - map: phpinfo.dev
-      to:  /var/www/fusionbox-cp/phpinfo
-
-    - map: beanstalk.dev
-      to:  /var/www/fusionbox-cp/beanstalk/public
+# supervise:
+#     - name: queue
+#       command: php /var/www/fusionimport/artisan queue:listen --tries=2
+#       directory: /var/www/fusionimport
+#       log: /var/www/fusionimport/storage/logs/supervisor.log
 
 # databases:
 #     - hometikibar
