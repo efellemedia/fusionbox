@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir -p /etc/supervisor
+
 block="[program:$1]
 command=$2
 directory=$3
