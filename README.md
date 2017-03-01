@@ -114,6 +114,15 @@ ports:
       protocol: udp
 ```
 
+## Network Interfaces
+The `networks` property of the `fusionbox.yaml` configures network interfaces for your Fusionbox environment. You may configure as many interfaces as necessary:
+
+```
+networks:
+    - type: "private_network"
+      ip: "192.168.10.20"
+```
+
 ## Updating Fusionbox
 You can update Fusionbox in two simple steps. First, you should update the Vagrant box using the `fusionbox box update` command:
 

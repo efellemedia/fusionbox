@@ -5,6 +5,12 @@ class Fusionbox
         # Configure local variable to access scripts from remote location
         scriptDir = File.dirname(__FILE__)
 
+        # Prevent TTY errors
+        config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+        # Allow SSH agent forward from the box
+        config.ssh.forward_agent = true
+
         # Configure the box
         config.vm.box = "fusion/box"
         config.vm.hostname = "fusionbox"
@@ -12,11 +18,23 @@ class Fusionbox
         # Configure a private network IP
         config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.80"
 
+        if settings.has_key?("networks")
+            settings["networks"].each do |network|
+                config.vm.network network["type"], ip: network["ip"], bridge: network["bridge"] ||= nil
+            end
+        end
+
         # Configure a few Virtualbox settings
         config.vm.provider "virtualbox" do |vb|
             vb.name = settings["name"] ||= "fusionbox"
             vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
             vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
+            vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+            vb.customize ["modifyvm", :id, "--natdnshostresolver1", settings["natdnshostresolver"] ||= "on"]
+
+            if settings.has_key?("gui") && settings["gui"]
+                vb.gui = true
+            end
         end
 
         # Standardize port naming schema
@@ -32,10 +50,11 @@ class Fusionbox
 
         # Default port forwarding
         default_ports = {
-            80   => 8000,
-            443  => 44300,
-            3306 => 33060,
-            5432 => 54320
+            80   => 8080,
+            443  => 44380,
+            3306 => 33080,
+            5432 => 54328,
+            22   => 2280
         }
 
         # Use default port forwardning unless overridden
