@@ -1,5 +1,5 @@
 # Fusionbox
-Fusionbox is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing the ability to easily run FusionCMS v4 locally in no time. It provides you with everything  without requiring you to install PHP, Apache, or any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
+Fusionbox is a preconfigured Vagrant Box that matches our Rackspace CentOS server setup, allowing you the ability to easily run FusionCMS v4 locally in no time. It provides you with everything without requiring you to install PHP, Apache, or any other server software on your local machine. No more worrying about messing up your operating system! Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes!
 
 Fusionbox runs on any Windows, Mac, or Linux system, and includes the Apache web server, PHP 5.3, MySQL, and all of the other goodies you need to develop amazing v4 projects.
 
@@ -42,6 +42,15 @@ The `folders` property of the Fusionbox configuration file lists all the folders
 folders:
     - map: ~/Code
       to: /var/www
+```
+
+To enable [NFS](https://www.vagrantup.com/docs/synced-folders/nfs.html), just add a simple flag to your synced folder configuration. Enabling NFS will significantly speed up page load speeds for most users.
+
+```
+folders:
+    - map: ~/Code
+      to: /var/www
+      type: "nfs"
 ```
 
 ### Configuring Apache Sites
@@ -92,3 +101,29 @@ By default, the following ports are forwarded to your Fusionbox environment:
 - **SSH:** 2222 → Forwards to 22
 - **HTTP:** 8000 → Forwards to 80
 - **MySQL:** 33060 → Forwards to 3306
+
+### Forwarding Additional Ports
+If you wish, you may forward additional ports to the Vagrant box, as well as specify their protocol:
+
+```
+ports:
+    - send: 93000
+      to: 9300
+    - send: 7777
+      to: 777
+      protocol: udp
+```
+
+## Updating Fusionbox
+You can update Fusionbox in two simple steps. First, you should update the Vagrant box using the `fusionbox box update` command:
+
+```
+fusionbox box update
+```
+
+Next, you need to update the Fusionbox source code. Simply `cd` to `~/.fusionbox` and run `git pull origin master`.
+
+```
+cd ~/.fusionbox
+git pull origin master
+```
