@@ -27,14 +27,46 @@ class Fusionbox
             5432 => 54320
         }
 
-        default_ports.each do |guest, host|
-            config.vm.network "forwarded_port", guest: guest, host: host, auto_correct: true
+        # Use default port forwardning unless overridden
+        unless settings.has_key?("default_ports") && settings["default_ports"] == false
+            default_ports.each do |guest, host|
+                unless settings["ports"].any? { |mapping| mapping["guest"] == guest }
+                    config.vm.network "forwarded_port", guest: guest, host: host, auto_correct: true
+                end
+            end
+        end
+
+        # Add custom ports from configuration
+        if settings.has_key?("ports")
+            settings["ports"].each do |port|
+                config.vm.network "forwarded_port", guest: port["guest"], host: port["host"], protocol: port["protocol"], auto_correct: true
+            end
         end
 
         # Register all of the configured shared folders
         if settings.include? 'folders'
             settings["folders"].each do |folder|
-                config.vm.synced_folder folder["map"], folder["to"], :mount_options => ["dmode=777", "fmode=666"]
+                if File.exists? File.expand_path(folder["map"])
+                    map_opts = ["dmode=777", "fmode=666"]
+
+                    if (folder["type"] == "nfs")
+                        mount_opts = folder["mount_options"] ? folder["mount_options"] : ['actimeo=1', 'nolock']
+                    end
+
+                    options = (folder["options"] || {}).merge({ mount_options: mount_opts })
+
+                    options.keys.each{|k| options[k.to_sym] = options.delete(k) }
+
+                    config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil, **options
+
+                    if Vagrant.has_plugin?("vagrant-bindfs")
+                        config.bindfs.bind_folder folder["to"], folder["to"]
+                    end
+                else
+                    config.vm.provision "shell" do |s|
+                        s.inline = ">&2 echo \"Unable to mount one of your folders. Please check your folders in the Fusionbox config file.\""
+                    end
+                end
             end
         end
 
