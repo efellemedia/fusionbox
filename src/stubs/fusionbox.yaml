@@ -14,6 +14,13 @@ sites:
     - map: hometikibar.dev
       to:  /var/www/hometiki/trunk
 
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
+
 # supervise:
 #     - name: queue
 #       command: php /var/www/fusionimport/artisan queue:listen --tries=2

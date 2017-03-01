@@ -19,6 +19,17 @@ class Fusionbox
             vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
         end
 
+        # Standardize port naming schema
+        if (settings.has_key?("ports"))
+            settings["ports"].each do |port|
+                port["guest"] ||= port["to"]
+                port["host"] ||= port["send"]
+                port["protocol"] ||= "tcp"
+            end
+        else
+            settings["ports"] = []
+        end
+
         # Default port forwarding
         default_ports = {
             80   => 8000,
@@ -47,7 +58,7 @@ class Fusionbox
         if settings.include? 'folders'
             settings["folders"].each do |folder|
                 if File.exists? File.expand_path(folder["map"])
-                    map_opts = ["dmode=777", "fmode=666"]
+                    mount_opts = ["dmode=777", "fmode=666"]
 
                     if (folder["type"] == "nfs")
                         mount_opts = folder["mount_options"] ? folder["mount_options"] : ['actimeo=1', 'nolock']
