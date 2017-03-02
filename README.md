@@ -101,8 +101,8 @@ Once your Fusionbox environment is provisioned and running, you may want to add 
 By default, the following ports are forwarded to your Fusionbox environment:
 
 - **SSH:** 2222 → Forwards to 22
-- **HTTP:** 8000 → Forwards to 80
-- **MySQL:** 33060 → Forwards to 3306
+- **HTTP:** 8080 → Forwards to 80
+- **MySQL:** 33080 → Forwards to 3306
 
 ### Forwarding Additional Ports
 If you wish, you may forward additional ports to the Vagrant box, as well as specify their protocol:
@@ -124,6 +124,16 @@ networks:
     - type: "private_network"
       ip: "192.168.10.20"
 ```
+
+## Sharing Your Environment
+Sometimes you may wish to share what you're currectly working on with coworkers or a client. Vagrant has a built-in way to support this via `vagrant share`; however, this will not work if you have multiple sites configured in your `fusionbox.yaml` file.
+
+To solve this problem, Fusionbox includes its own `share` command. To get started, SSH into your Fusionbox machine via `fusionbox ssh` and run `share domain.dev`. This will share the `domain.dev` site from your `fusionbox.yaml` configuration file. Of course, you may substitute any of your other configured sites for `domain.dev`.
+
+After running the command, you will see an Ngrok screen appear which contains the activity log and the publicly accessible URLs for the shared site.
+
+### Remember
+**Vagrant is inherently insecure and you are exposing your virtual machine to the internet when running the `share` command. Always close the connection when you are done.**
 
 ## Updating Fusionbox
 You can update Fusionbox in two simple steps. First, you should update the Vagrant box using the `fusionbox box update` command:
