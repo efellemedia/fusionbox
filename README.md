@@ -46,6 +46,15 @@ folders:
       to: /var/www
 ```
 
+To enable [NFS](https://www.vagrantup.com/docs/synced-folders/nfs.html), just add a simple flag to your synced folder configuration. Enabling NFS will significantly speed up page load speeds for most users.
+
+```
+folders:
+    - map: ~/Code
+      to: /var/www
+      type: "nfs"
+```
+
 ### Configuring Apache Sites
 Not familiar with Apache? No problem. The `sites` property allows you to easily map a "domain" to a folder on your Fusionbox environment. A sample site configuration is included in the Fusionbox configuration file. Again, you may add as many sites to your Fusionbox environment as necessary. Fusionbox can serve as a convenient, virtualized environment for every v4 project you are working on (including the CMS itself):
 
@@ -94,3 +103,38 @@ By default, the following ports are forwarded to your Fusionbox environment:
 - **SSH:** 2222 → Forwards to 22
 - **HTTP:** 8000 → Forwards to 80
 - **MySQL:** 33060 → Forwards to 3306
+
+### Forwarding Additional Ports
+If you wish, you may forward additional ports to the Vagrant box, as well as specify their protocol:
+
+```
+ports:
+    - send: 93000
+      to: 9300
+    - send: 7777
+      to: 777
+      protocol: udp
+```
+
+## Network Interfaces
+The `networks` property of the `fusionbox.yaml` configures network interfaces for your Fusionbox environment. You may configure as many interfaces as necessary:
+
+```
+networks:
+    - type: "private_network"
+      ip: "192.168.10.20"
+```
+
+## Updating Fusionbox
+You can update Fusionbox in two simple steps. First, you should update the Vagrant box using the `fusionbox box update` command:
+
+```
+fusionbox box update
+```
+
+Next, you need to update the Fusionbox source code. Simply `cd` to `~/.fusionbox` and run `git pull origin master`.
+
+```
+cd ~/.fusionbox
+git pull origin master
+```
